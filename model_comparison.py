@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.metrics import classification_report
@@ -85,3 +86,8 @@ for model_name, model in models.items():
     plt.close()
 
 print("\nAll models evaluated and images generated!")
+
+# We use joblib to save the model and the scaler
+joblib.dump(models["Isolation Forest"], 'isolation_forest_model.pkl')
+joblib.dump(scaler, 'data_scaler.pkl')
+print("Model and Scaler exported successfully!")

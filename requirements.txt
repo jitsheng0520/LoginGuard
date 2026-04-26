@@ -1,0 +1,13 @@
+streamlit
+-> hosting of the app
+
+pandas
+-> data manipulation
+
+scikit-learn
+-> machine learning algorithms and tools
+
+joblib
+-> model serialization and deserialization (make it easier to save and load models)
+
+

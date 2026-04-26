@@ -30,20 +30,27 @@ if st.button("Check for Threats"):
     ip_val = 1 if is_ip_different else 0
     device_val = 1 if is_new_device else 0
     
-    # Order must be: dist, duration, fails, hour, ip, device
+    # 1. Create the data with names
     data_dict = {
-        'geo_distance_km': [dist],
-        'session_duration': [duration],
-        'failed_attempts': [fails],
         'login_hour': [hour],
+        'failed_attempts': [fails],
+        'new_device': [device_val],
         'ip_changed': [ip_val],
-        'new_device': [device_val]
+        'geo_distance_km': [dist],
+        'session_duration': [duration]
+        
     }
     
+    # 2. Convert to DataFrame
     input_data = pd.DataFrame(data_dict)
     
-    # Scale and Predict
-    scaled_input = scaler.transform(input_data) # This will now work perfectly
+    # 3. FORCE THE ORDER: Change this list to match exactly 
+    # what you saw in Step 1 (the output of feature_names_in_)
+    correct_order = ['geo_distance_km', 'session_duration', 'failed_attempts', 'login_hour', 'ip_changed', 'new_device']
+    input_data = input_data[correct_order]
+    
+    # 4. Now scale and predict
+    scaled_input = scaler.transform(input_data)
     prediction = model.predict(scaled_input)
     
     if prediction[0] == -1:

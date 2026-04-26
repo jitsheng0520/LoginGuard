@@ -21,9 +21,9 @@ contamination_rate = len(df[df['label'] == 'anomaly']) / len(df)
 
 # Scale the data
 scaler = StandardScaler()
-X_scaled = X.copy()
-X_scaled[['geo_distance_km', 'session_duration', 'failed_attempts', 'login_hour']] = \
-    scaler.fit_transform(X[['geo_distance_km', 'session_duration', 'failed_attempts', 'login_hour']])
+feature_cols = ['geo_distance_km', 'session_duration', 'failed_attempts', 'login_hour', 'ip_changed', 'new_device']
+X = X[feature_cols] # Ensure order
+X_scaled = scaler.fit_transform(X) # Scale everything together
 
 # Reduce dimensions for visualization (2D)
 pca = PCA(n_components=2)
